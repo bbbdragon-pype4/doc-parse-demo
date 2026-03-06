@@ -30,8 +30,11 @@ def submit_messages(messages: List[Dict],
                     client: openai.OpenAI = CLIENT,
                     model: str = OPENAI_MODEL,
                     schema: BaseModel = Contract,
-                   ) -> Contract:
-
+                   ) -> Dict:
+    '''
+    Function to submit messages to OpenAI, and then convert the output from a Contract to a 
+    dictionary.
+    '''
     r=client.chat.completions.parse(model=model,
                                     messages=messages,
                                     response_format=schema,
@@ -45,8 +48,10 @@ def submit_messages(messages: List[Dict],
 
 def submit_text_query(text: str,
                       systemQuery: str = SYSTEM_QUERY,
-                     ) -> Contract:
-
+                     ) -> Dict:
+    '''
+    Wrapper for text-only queries.  systemQuery defines how to find fields in the image.
+    '''
     messages=[{'role':'system', 
                'content':systemQuery,
               },
@@ -58,8 +63,11 @@ def submit_text_query(text: str,
     return r
 
 
-def submit_ocr_query(fileName: str) -> Contract:
-
+def submit_ocr_query(fileName: str) -> Dict:
+    '''
+    Pipeline to extract text from a file using OCR, and then submit that to the text buffer 
+    of an LLM.
+    '''
     text=ocr_to_text(fileName)
     r=submit_text_query(text)
 
@@ -69,8 +77,11 @@ def submit_ocr_query(fileName: str) -> Contract:
 def submit_image_buffer_query(fileName: str,
                               systemQuery: str = SYSTEM_QUERY,
                               userImageQuery: str = USER_IMAGE_QUERY,
-                             ) -> Contract:
-
+                             ) -> Dict:
+    '''
+    Pipeline to extract an image in string form (imageURL), and then submit it to the image
+    buffer of the LLM.
+    '''
     imageURL=image_url(fileName)
     messages=[{'role':'system', 
                'content':systemQuery,
@@ -92,7 +103,10 @@ def submit_hybrid_query(fileName: str,
                         systemQuery: str = SYSTEM_QUERY,
                         hybridQuery: str = USER_HYBRID_QUERY,
                        ):
-
+    '''
+    Pipeline to extract text from the OCR, an image string directly from the file, and submit
+    both of them to the LLM.
+    '''
     text=ocr_to_text(fileName)
     imageURL=image_url(fileName)
     messages=[{'role':'system', 
