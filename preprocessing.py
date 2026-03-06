@@ -5,17 +5,23 @@ import pytesseract
 from PIL import Image
 import sys
 import base64
+from typing import Union
 
 def ocr_to_text(fileName: str) -> str:
-
+    '''
+    Opens an image file and returns parsed text.
+    '''
     img=Image.open(fileName)
     st=pytesseract.image_to_string(img)
 
     return st
 
 
-def encode_image(imageFile):
-
+def encode_image(imageFile: Union[str]) -> str:
+    '''
+    Returns base64 encoding (in utf-8 strings) of either an image file or a werkzeug image
+    returned from the react server.
+    '''
     try:
 
         with open(imageFile, "rb") as f:
@@ -30,8 +36,10 @@ def encode_image(imageFile):
 
         
 
-def image_url(imageFile):
-
+def image_url(imageFile: Union[str]) -> str:
+    '''
+    Helper to generate a string for the image that is consumable by the OpenAI API.
+    '''
     encoding=encode_image(imageFile)
     imageString=f'data:image/jpeg;base64,{encoding}'
     
