@@ -1,0 +1,5 @@
+          <p>Buyer: {contractDict.buyer.firstName} {contractDict.buyer.lastName}</p>
+          <p>Seller: {contractDict.seller.firstName} {contractDict.seller.lastName}</p>
+          <p>Date: {contractDict.dt}</p>
+          <p>Deopist: {contractDict.deposit.depositAmount} as a {contractDict.deposit.depositForm}</p>
+          <p>Address: {contractDict.prprty.streetNumber} {contractDict.prprty.street}, {contractDict.prprty.city}, {contractDict.prprty.state}, {contractDict.prprty.zipCode} ({contractDict.prprty.county} county)</p>

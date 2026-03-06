@@ -1,0 +1,9 @@
+.imageSize { 
+  max-width: 600px; 
+  max-height: 600px; 
+}
+
+.imagePreviewMargin { 
+  margin-top: 20px; 
+}
+
