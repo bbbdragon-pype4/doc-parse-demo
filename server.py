@@ -6,7 +6,9 @@ app=Flask(__name__)
 
 @app.route('/api/ocr',methods=['POST'])
 def ocr_endpoint():
-
+    '''
+    Endpoint for OCR extraction.
+    '''
     fileName=request.files['file']
 
     r=submit_ocr_query(fileName)
@@ -16,7 +18,9 @@ def ocr_endpoint():
 
 @app.route('/api/llm_image',methods=['POST'])
 def llm_image_endpoint():
-
+    '''
+    Endpoint for image buffer extraction.
+    '''
     fileName=request.files['file']
 
     r=submit_image_buffer_query(fileName)
@@ -26,7 +30,9 @@ def llm_image_endpoint():
 
 @app.route('/api/hybrid',methods=['POST'])
 def hybrid_endpoint():
-
+    '''
+    Endpoint for hybrid extraction.
+    '''
     fileName=request.files['file']
 
     r=submit_image_buffer_query(fileName)
