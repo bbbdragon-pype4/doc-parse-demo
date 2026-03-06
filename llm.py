@@ -37,7 +37,10 @@ def submit_messages(messages: List[Dict],
                                     response_format=schema,
                                    )
 
-    return r.choices[0].message.parsed
+    parsed=r.choices[0].message.parsed
+    js=parsed.model_dump()
+
+    return js
 
 
 def submit_text_query(text: str,

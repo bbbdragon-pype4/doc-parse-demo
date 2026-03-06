@@ -16,10 +16,19 @@ def ocr_to_text(fileName: str) -> str:
 
 def encode_image(imageFile):
 
-    with open(imageFile, "rb") as f:
+    try:
 
-        return base64.b64encode(f.read()).decode("utf-8")
+        with open(imageFile, "rb") as f:
 
+            content=f.read()
+
+    except Exception as e:
+
+        content=imageFile.read()
+
+    return base64.b64encode(content).decode("utf-8")
+
+        
 
 def image_url(imageFile):
 
